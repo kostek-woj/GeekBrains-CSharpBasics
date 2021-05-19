@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace GeekBrains_CSharpBasics
 {
-    class Program
+    class Program002_1
     {
         static int SmallestNumber(int a, int b) {
             return a < b ? a : b;
