@@ -45,7 +45,7 @@ namespace Lesson003_Homework
             this._re = 0;
         }
 
-        public Complex(double im, double re) {           
+        public Complex(double im, double re) {
             this._im = im;
             this._re = re;
         }
@@ -95,8 +95,119 @@ namespace Lesson003_Homework
     }
 
 
+    class Fraction {
+        private int _numerator;
+        private int _denominator;
+
+        public Fraction() {
+            this._numerator = 1;
+            this._denominator = 1;
+        }
+
+        public Fraction(int numerator, int denominator) {
+            this._numerator = numerator;
+            this._denominator = denominator;
+        }
+
+        public Fraction Add(Fraction f2) {
+            Fraction f3 = new Fraction();
+            if (this.Denominator == f2.Denominator) {
+                f3.Numerator = this.Numerator + f2.Numerator;
+                f3.Denominator = this.Denominator;
+            } else {
+                f3.Numerator = this.Numerator * f2.Denominator + f2.Numerator * this.Denominator;
+                f3.Denominator = this.Denominator * f2.Denominator;
+            }
+            return f3;
+        }
+
+        public Fraction Subtract(Fraction f2) {
+            Fraction f3 = new Fraction();
+            if (this.Denominator == f2.Denominator) {
+                f3.Numerator = this.Numerator - f2.Numerator;
+                f3.Denominator = this.Denominator;
+            } else {
+                f3.Numerator = this.Numerator * f2.Denominator - f2.Numerator * this.Denominator;
+                f3.Denominator = this.Denominator * f2.Denominator;
+            }
+            return f3;
+        }
+
+        public Fraction Multiply(Fraction f2) {
+            Fraction f3 = new Fraction();
+            f3.Numerator = this.Numerator * f2.Numerator;
+            f3.Denominator = this.Denominator * f2.Denominator;
+            return f3;
+        }
+
+        public Fraction Divide(Fraction f2) {
+            Fraction f3 = new Fraction();
+            f3.Numerator = this.Numerator * f2.Denominator;
+            f3.Denominator = this.Denominator * f2.Numerator;
+            return f3;
+        }
+
+        public int Numerator {
+            get { return this._numerator; }
+            set { this._numerator = value; }
+        }
+
+        public int Denominator {
+            get { return this._denominator; }
+            set { this._denominator = value; }
+        }
+
+        public double Decimal {
+            get { return (double)this.Numerator / (double)this.Denominator; }
+        }
+
+        public override string ToString() {
+            return this.Numerator + "/" + this.Denominator;
+        }
+
+    }
+
+    
+
+
+
     class Program
     {
+
+        static bool Simplifable(Fraction f) {
+            return GreatestCommonDivisor(f.Numerator, f.Denominator) > 1;
+        }
+
+        static Fraction Simplify(Fraction f) {
+            Fraction fRes = new Fraction(f.Numerator, f.Denominator);
+            int gcd = GreatestCommonDivisor(fRes.Numerator, fRes.Denominator);
+            if (Simplifable(fRes)) {
+                fRes.Numerator /= gcd;
+                fRes.Denominator /= gcd;
+            }
+            return fRes;
+        }
+
+        static int GreatestCommonDivisor(int a, int b) {
+            if (a == 0) {
+                return Math.Abs(b);
+            }
+
+            if (b == 0) {
+                return Math.Abs(a);
+            }
+
+            if (a == b) {
+                return Math.Abs(a);
+            }
+
+            if (a > b) {
+                return GreatestCommonDivisor(Math.Abs(a) - Math.Abs(b), Math.Abs(b));
+            } else {
+                return GreatestCommonDivisor(Math.Abs(a), Math.Abs(b) - Math.Abs(a));
+            }
+        }
+
         #region Task1
         static void Task1() {
             Console.Clear();
@@ -134,7 +245,7 @@ namespace Lesson003_Homework
 
             Console.WriteLine("\nИспользуется структура ComplexStruct:");
             Console.WriteLine($"{num1Struct} + {num2Struct} = {num1Struct.Add(num2Struct)}");
-            Console.WriteLine($"{num1Struct} + {num2Struct} = {num1Struct.Subtract(num2Struct)}");
+            Console.WriteLine($"{num1Struct} - {num2Struct} = {num1Struct.Subtract(num2Struct)}");
 
             Console.WriteLine("\nИспользуется класс Complex:");
             Console.WriteLine($"{num1} + {num2} = {num1.Add(num2)}");
@@ -243,9 +354,55 @@ namespace Lesson003_Homework
                 "\t*** Добавить упрощение дробей.\n"
             );
 
+            Fraction f1 = new Fraction();
+            Fraction f2 = new Fraction();
+            Fraction f3 = new Fraction();
 
+            Console.Write("Введите дробь 1 через /, например, 1/2:");
+            string f1Str = Console.ReadLine();
+            if (Convert.ToInt32(f1Str.Split('/')[1]) == 0) {
+                throw new ArgumentException("Знаменатель не может быть равен 0");
+            } else {
+                f1 = new Fraction(Convert.ToInt32(f1Str.Split('/')[0]), Convert.ToInt32(f1Str.Split('/')[1]));
+            }
 
-            Console.WriteLine("Нажмите любую клавишу для возврата в главное меню...");
+            Console.Write("Введите дробь 2 через /, например, 1/2:");
+            string f2Str = Console.ReadLine();
+            if (Convert.ToInt32(f2Str.Split('/')[1]) == 0) {
+                throw new ArgumentException("Знаменатель не может быть равен 0");
+            } else {
+                f2 = new Fraction(Convert.ToInt32(f2Str.Split('/')[0]), Convert.ToInt32(f2Str.Split('/')[1]));
+            }
+
+            f3 = f1.Add(f2);
+            Console.Write(f1 + " + " + f2 + " = " + f3);
+            if (Simplifable(f3)) {
+                Console.Write(" или " + Simplify(f3));
+            }
+            Console.WriteLine(" или " + f3.Decimal);
+
+            f3 = f1.Subtract(f2);
+            Console.Write(f1 + " — " + f2 + " = " + f3);
+            if (Simplifable(f3)) {
+                Console.Write(" или " + Simplify(f3));
+            }
+            Console.WriteLine(" или " + f3.Decimal);
+
+            f3 = f1.Multiply(f2);
+            Console.Write(f1 + " × " + f2 + " = " + f3);
+            if (Simplifable(f3)) {
+                Console.Write(" или " + Simplify(f3));
+            }
+            Console.WriteLine(" или " + f3.Decimal);
+
+            f3 = f1.Divide(f2);
+            Console.Write(f1 + " ÷ " + f2 + " = " + f3);
+            if (Simplifable(f3)) {
+                Console.Write(" или " + Simplify(f3));
+            }
+            Console.WriteLine(" или " + f3.Decimal);
+
+            Console.Write("Нажмите любую клавишу для возврата в главное меню...");
             Console.ReadKey();
         }
         #endregion
