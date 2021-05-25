@@ -96,17 +96,71 @@ namespace Lesson003_Homework
 
 
     class Fraction {
+        private bool _isPositive;
+        private int _mixed;
         private int _numerator;
         private int _denominator;
 
         public Fraction() {
+            this._isPositive = true;
+            this._mixed = 0;
             this._numerator = 1;
             this._denominator = 1;
         }
 
         public Fraction(int numerator, int denominator) {
+            this._isPositive = true;
+            this._mixed = 0;
             this._numerator = numerator;
             this._denominator = denominator;
+        }
+
+        public Fraction(int mixed, int numerator, int denominator) {
+            this._isPositive = true;
+            this._mixed = mixed;
+            this._numerator = numerator;
+            this._denominator = denominator;
+        }
+
+        public Fraction(bool isPositive, int mixed, int numerator, int denominator) {
+            this._isPositive = isPositive;
+            this._mixed = mixed;
+            this._numerator = numerator;
+            this._denominator = denominator;
+        }
+
+        public Fraction Simplify() {
+            return this.GCD > 1 ? new Fraction(this.Numerator / this.GCD, this.Denominator / this.GCD)
+                : new Fraction(this.Numerator, this.Denominator);
+        }
+
+        public Fraction SimplifyMixed() {
+            Fraction f = (new Fraction(this.Numerator, this.Denominator)).Simplify();
+            if (f.Numerator > f.Denominator) {
+                f.Mixed = f.Numerator / f.Denominator;
+                f.Numerator = f.Numerator % f.Denominator;
+            }
+            return f;
+        }
+
+        private int GreatestCommonDivisor(int a, int b) {
+            if (a == 0) {
+                return Math.Abs(b);
+            }
+
+            if (b == 0) {
+                return Math.Abs(a);
+            }
+
+            if (a == b) {
+                return Math.Abs(a);
+            }
+
+            if (a > b) {
+                return GreatestCommonDivisor(Math.Abs(a) - Math.Abs(b), Math.Abs(b));
+            } else {
+                return GreatestCommonDivisor(Math.Abs(a), Math.Abs(b) - Math.Abs(a));
+            }
         }
 
         public Fraction Add(Fraction f2) {
@@ -147,6 +201,11 @@ namespace Lesson003_Homework
             return f3;
         }
 
+        public int Mixed {
+            get { return this._mixed; }
+            set { this._mixed = value; }
+        }
+
         public int Numerator {
             get { return this._numerator; }
             set { this._numerator = value; }
@@ -161,8 +220,16 @@ namespace Lesson003_Homework
             get { return (double)this.Numerator / (double)this.Denominator; }
         }
 
+        public int GCD {
+            get { return GreatestCommonDivisor(this.Numerator, this.Denominator); }
+        }
+
         public override string ToString() {
-            return this.Numerator + "/" + this.Denominator;
+            if (this.Mixed != 0) {
+                return this.Mixed + "(" + this.Numerator + "/" + this.Denominator + ")";
+            } else {
+                return this.Numerator + "/" + this.Denominator;
+            }
         }
 
     }
@@ -173,39 +240,15 @@ namespace Lesson003_Homework
 
     class Program
     {
-
-        static bool Simplifable(Fraction f) {
-            return GreatestCommonDivisor(f.Numerator, f.Denominator) > 1;
-        }
-
-        static Fraction Simplify(Fraction f) {
-            Fraction fRes = new Fraction(f.Numerator, f.Denominator);
-            int gcd = GreatestCommonDivisor(fRes.Numerator, fRes.Denominator);
-            if (Simplifable(fRes)) {
-                fRes.Numerator /= gcd;
-                fRes.Denominator /= gcd;
+        static void writeExtraData(Fraction f) {
+            Fraction fMixed = (new Fraction(f.Numerator, f.Denominator)).SimplifyMixed();
+            if (f.GCD > 1) {
+                Console.Write(" = " + f.Simplify());
             }
-            return fRes;
-        }
-
-        static int GreatestCommonDivisor(int a, int b) {
-            if (a == 0) {
-                return Math.Abs(b);
+            if (fMixed.Mixed != 0) {
+                Console.Write(" = " + f.SimplifyMixed());
             }
-
-            if (b == 0) {
-                return Math.Abs(a);
-            }
-
-            if (a == b) {
-                return Math.Abs(a);
-            }
-
-            if (a > b) {
-                return GreatestCommonDivisor(Math.Abs(a) - Math.Abs(b), Math.Abs(b));
-            } else {
-                return GreatestCommonDivisor(Math.Abs(a), Math.Abs(b) - Math.Abs(a));
-            }
+            Console.WriteLine(" = " + f.Decimal);
         }
 
         #region Task1
@@ -376,36 +419,26 @@ namespace Lesson003_Homework
 
             f3 = f1.Add(f2);
             Console.Write(f1 + " + " + f2 + " = " + f3);
-            if (Simplifable(f3)) {
-                Console.Write(" или " + Simplify(f3));
-            }
-            Console.WriteLine(" или " + f3.Decimal);
+            writeExtraData(f3);
+            
 
             f3 = f1.Subtract(f2);
             Console.Write(f1 + " — " + f2 + " = " + f3);
-            if (Simplifable(f3)) {
-                Console.Write(" или " + Simplify(f3));
-            }
-            Console.WriteLine(" или " + f3.Decimal);
+            writeExtraData(f3);
 
             f3 = f1.Multiply(f2);
             Console.Write(f1 + " × " + f2 + " = " + f3);
-            if (Simplifable(f3)) {
-                Console.Write(" или " + Simplify(f3));
-            }
-            Console.WriteLine(" или " + f3.Decimal);
+            writeExtraData(f3);
 
             f3 = f1.Divide(f2);
             Console.Write(f1 + " ÷ " + f2 + " = " + f3);
-            if (Simplifable(f3)) {
-                Console.Write(" или " + Simplify(f3));
-            }
-            Console.WriteLine(" или " + f3.Decimal);
+            writeExtraData(f3);
 
             Console.Write("Нажмите любую клавишу для возврата в главное меню...");
             Console.ReadKey();
         }
         #endregion
+
 
         static void Main(string[] args) {
 
