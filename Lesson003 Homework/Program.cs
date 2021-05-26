@@ -201,6 +201,17 @@ namespace Lesson003_Homework
             return f3;
         }
 
+        public void writeExtraData() {
+            Fraction fMixed = (new Fraction(this.Numerator, this.Denominator)).SimplifyMixed();
+            if (this.GCD > 1) {
+                Console.Write(" = " + this.Simplify());
+            }
+            if (fMixed.Mixed != 0) {
+                Console.Write(" = " + this.SimplifyMixed());
+            }
+            Console.WriteLine(" = " + this.Decimal);
+        }
+
         public int Mixed {
             get { return this._mixed; }
             set { this._mixed = value; }
@@ -225,11 +236,9 @@ namespace Lesson003_Homework
         }
 
         public override string ToString() {
-            if (this.Mixed != 0) {
-                return this.Mixed + "(" + this.Numerator + "/" + this.Denominator + ")";
-            } else {
-                return this.Numerator + "/" + this.Denominator;
-            }
+            return (this.Mixed != 0) ?
+                this.Mixed + "(" + this.Numerator + "/" + this.Denominator + ")" :
+                this.Numerator + "/" + this.Denominator;
         }
 
     }
@@ -240,16 +249,6 @@ namespace Lesson003_Homework
 
     class Program
     {
-        static void writeExtraData(Fraction f) {
-            Fraction fMixed = (new Fraction(f.Numerator, f.Denominator)).SimplifyMixed();
-            if (f.GCD > 1) {
-                Console.Write(" = " + f.Simplify());
-            }
-            if (fMixed.Mixed != 0) {
-                Console.Write(" = " + f.SimplifyMixed());
-            }
-            Console.WriteLine(" = " + f.Decimal);
-        }
 
         #region Task1
         static void Task1() {
@@ -419,20 +418,20 @@ namespace Lesson003_Homework
 
             f3 = f1.Add(f2);
             Console.Write(f1 + " + " + f2 + " = " + f3);
-            writeExtraData(f3);
+            f3.writeExtraData();
             
 
             f3 = f1.Subtract(f2);
             Console.Write(f1 + " — " + f2 + " = " + f3);
-            writeExtraData(f3);
+            f3.writeExtraData();
 
             f3 = f1.Multiply(f2);
             Console.Write(f1 + " × " + f2 + " = " + f3);
-            writeExtraData(f3);
+            f3.writeExtraData();
 
             f3 = f1.Divide(f2);
             Console.Write(f1 + " ÷ " + f2 + " = " + f3);
-            writeExtraData(f3);
+            f3.writeExtraData();
 
             Console.Write("Нажмите любую клавишу для возврата в главное меню...");
             Console.ReadKey();
