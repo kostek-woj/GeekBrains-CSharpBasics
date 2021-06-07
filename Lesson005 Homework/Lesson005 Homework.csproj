@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5EDA076D-5603-4135-BAE0-71ED562BE297}</ProjectGuid>
+    <ProjectGuid>{FB9E0F9C-42A1-4B03-A92C-32A2D7803F70}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lesson004_Homework</RootNamespace>
-    <AssemblyName>Lesson004 Homework</AssemblyName>
+    <RootNamespace>Lesson005_Homework</RootNamespace>
+    <AssemblyName>Lesson005_Homework</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -50,13 +50,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Array2DLib\Array2DLib.csproj">
-      <Project>{bf10a24b-59ec-47f0-80b7-15b3a24e5828}</Project>
-      <Name>Array2DLib</Name>
+    <ProjectReference Include="..\ExamResults\ExamResults.csproj">
+      <Project>{59996d57-02d5-4463-8192-857a89917ba5}</Project>
+      <Name>ExamResults</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyArrayLib\MyArrayLib.csproj">
-      <Project>{09c33577-c0fb-48d6-95d2-5b981d610056}</Project>
-      <Name>MyArrayLib</Name>
+    <ProjectReference Include="..\Message\MessageLib.csproj">
+      <Project>{4547a2b5-0200-44ec-8af1-cf56a7d8da79}</Project>
+      <Name>MessageLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
