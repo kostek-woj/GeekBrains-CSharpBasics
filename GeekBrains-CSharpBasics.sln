@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageLib", "Message\Messa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamResults", "ExamResults\ExamResults.csproj", "{59996D57-02D5-4463-8192-857A89917BA5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lesson006", "Lesson006", "{31E6AEFF-E9C4-429F-8FF4-726283D63565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson006 Homework", "FunTable\Lesson006 Homework.csproj", "{D32C59DA-45E0-49E7-BB83-1C9A280D67D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +111,10 @@ Global
 		{59996D57-02D5-4463-8192-857A89917BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59996D57-02D5-4463-8192-857A89917BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59996D57-02D5-4463-8192-857A89917BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32C59DA-45E0-49E7-BB83-1C9A280D67D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32C59DA-45E0-49E7-BB83-1C9A280D67D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32C59DA-45E0-49E7-BB83-1C9A280D67D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32C59DA-45E0-49E7-BB83-1C9A280D67D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +135,7 @@ Global
 		{FB9E0F9C-42A1-4B03-A92C-32A2D7803F70} = {7F6157D8-B828-41E2-BAFA-9ABCB21C4B27}
 		{4547A2B5-0200-44EC-8AF1-CF56A7D8DA79} = {7F6157D8-B828-41E2-BAFA-9ABCB21C4B27}
 		{59996D57-02D5-4463-8192-857A89917BA5} = {7F6157D8-B828-41E2-BAFA-9ABCB21C4B27}
+		{D32C59DA-45E0-49E7-BB83-1C9A280D67D7} = {31E6AEFF-E9C4-429F-8FF4-726283D63565}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B619613-353D-41B0-9CB3-FF08828CA435}
